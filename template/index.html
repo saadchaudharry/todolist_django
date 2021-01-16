@@ -3,6 +3,13 @@
 <!doctype html>
 <html lang="en">
   <head>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="media/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/favicon-16x16.png">
+    <link rel="manifest" href="media/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -131,7 +138,7 @@ ul {
 
 
 <div class="table-responsive">
-  <table class="table table-sm  mt-4">
+  <table class="table table-bordered  mt-4">
     <thead class="mx-3 bg-dark text-white">
     <tr>
       <th scope="col" >Task</th>
@@ -163,7 +170,7 @@ ul {
     </div>
   </div>
 </div>
-       <br><small style="word-wrap:  break-word">{{ i.detail }}</small></td>
+       <br><small class="text-muted" style="word-wrap:  break-word">{{ i.detail }}</small></td>
         <td >{{ i.complete_date }}</td>
         <td><strong>{{ i.status }}</strong></td>
     </tr>
@@ -175,7 +182,39 @@ ul {
 
 
 <div class="row">
-<div class="col-md-4"></div>
+<div class="col-md-4">
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+{% if object.has_previous %}
+    <li class="page-item">
+    <a class="page-link" href="?page={{ object.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+{% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+{% endif %}
+
+{% for i in object.paginator.page_range %}
+    <li class="page-item"><a class="page-link"  href="?page={{ i }}">{{ i }}</a></li>
+{% endfor %}
+
+
+{% if object.has_next %}
+    <li class="page-item">
+    <a class="page-link" href="?page={{ object.next_page_number }}">Next</a>
+    </li>
+{% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Next</a>
+    </li>
+{% endif %}
+
+  </ul>
+</nav>
+
+
+</div>
 <div class="col-12 col-md-8 d-grid gap-2 ">
 <div class="btn-group bg-dark rounded" role="group" aria-label="Basic example">
   <button type="button" class="btn btn-dark"  data-bs-toggle="modal" data-bs-target="#exampleModal"><strong class=""> + add Task</strong></button>
